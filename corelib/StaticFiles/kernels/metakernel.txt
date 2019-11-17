@@ -1,0 +1,9 @@
+#kernels/generic/de421.bsp
+kernels/generic/de432s.bsp
+kernels/generic/moon_080317.tf
+kernels/generic/moon_assoc_me.tf
+kernels/generic/moon_pa_de421_1900-2050.bpc
+kernels/generic/naif0010.tls
+kernels/generic/pck00010.tpc
+kernels/generic/earthstns_fx_050714.bsp
+kernels/generic/earth_topo_050714_earth_fixed.tf.txt
