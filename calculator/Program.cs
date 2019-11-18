@@ -15,6 +15,8 @@ namespace calculator
     {
         static void Main(string[] args)
         {
+            OSGeo.GDAL.Gdal.AllRegister();
+
             new Test2().Run();
         }
     }
