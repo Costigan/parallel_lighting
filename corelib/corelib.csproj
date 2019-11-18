@@ -20,10 +20,10 @@
 
   <ItemGroup>
     <Content Include="..\..\..\..\RP\LOLA\NP_Siegler_etal_2016_Ice.txt" Link="StaticFiles\NP_Siegler_etal_2016_Ice.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\..\..\RP\LOLA\SP_Siegler_etal_2016_Ice.txt" Link="StaticFiles\SP_Siegler_etal_2016_Ice.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="cspice.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
