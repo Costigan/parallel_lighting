@@ -15,6 +15,9 @@ namespace calculator
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello from netcore3.0");
+            return;
+
             OSGeo.GDAL.Gdal.AllRegister();
 
             new Test2().Run();
