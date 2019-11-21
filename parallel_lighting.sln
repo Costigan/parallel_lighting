@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "corelib", "corelib\corelib.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "calculator", "calculator\calculator.csproj", "{88596C6B-67D7-4221-B1AF-E8E47F1A729E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_ilgpu", "test_ilgpu\test_ilgpu.csproj", "{9491F3BC-611C-4B8F-BDE7-24275C0B2444}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test_ilgpu", "test_ilgpu\test_ilgpu.csproj", "{9491F3BC-611C-4B8F-BDE7-24275C0B2444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_gdal", "test_gdal\test_gdal.csproj", "{977F83D4-A6B9-4B71-994B-8AAE7181E04E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{9491F3BC-611C-4B8F-BDE7-24275C0B2444}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9491F3BC-611C-4B8F-BDE7-24275C0B2444}.Release|x64.ActiveCfg = Release|Any CPU
 		{9491F3BC-611C-4B8F-BDE7-24275C0B2444}.Release|x64.Build.0 = Release|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Debug|x64.Build.0 = Debug|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Release|x64.ActiveCfg = Release|Any CPU
+		{977F83D4-A6B9-4B71-994B-8AAE7181E04E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
