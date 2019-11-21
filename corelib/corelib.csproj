@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="cspice.dll" />
     <None Remove="StaticFiles\kernels\generic\de432_tech-comments.txt" />
     <None Remove="StaticFiles\kernels\generic\earth_assoc_itrf93.tf.txt" />
     <None Remove="StaticFiles\kernels\generic\earth_topo_050714.tf.txt" />
@@ -24,9 +23,6 @@
     </Content>
     <Content Include="..\..\..\..\RP\LOLA\SP_Siegler_etal_2016_Ice.txt" Link="StaticFiles\SP_Siegler_etal_2016_Ice.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="cspice.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="StaticFiles\kernels\generic\de432_tech-comments.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -106,6 +102,22 @@
     <None Update="StaticFiles\Named_Lunar_Features_for_map_labeling.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <None Remove="cspice.so"/>
+    <Content Include="cspice.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="spice/CSpice_linux.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
+    <None Remove="cspice.dll"/>
+    <Content Include="spice.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Remove="spice/CSpice.cs"/>
   </ItemGroup>
 
 </Project>
