@@ -120,8 +120,8 @@ namespace viper.corelib.horizon
                         gpu_heights.CopyFrom(relativeHeights, 0, 0, gpu_heights_size);
                         gpu_horizon.CopyFrom(cpu_horizon, 0, 0, cpu_horizon_size);
 
-                        var kernel = accelerator.LoadSharedMemoryStreamKernel1<
-                            GroupedIndex, ArrayView<short>, ArrayView<double>, ArrayView<float>, int, int, int, ArrayView<float>>(Test2Kernel);
+                        // var kernel = accelerator.LoadSharedMemoryStreamKernel1<GroupedIndex, ArrayView<short>, ArrayView<double>, ArrayView<float>, int, int, int, ArrayView<float>>(Test2Kernel);
+                        var kernel = accelerator.LoadStreamKernel<GroupedIndex, ArrayView<short>, ArrayView<double>, ArrayView<float>, int, int, int>(Test2Kernel);
 
                         var groupSize = Math.Min(accelerator.MaxNumThreadsPerGroup, 128);
                         var dimension = new GroupedIndex(1, groupSize);
@@ -158,13 +158,12 @@ namespace viper.corelib.horizon
             ArrayView<float> horizon,
             int a_line,
             int a_sample,
-            int aline_init,
-
-            [SharedMemory(1440)]
-            ArrayView<float> horizon_shared)
+            int aline_init)
         {
             var idx = index.GroupIdx;
             const int patch_size = 128;
+
+            ArrayView<float> horizon_shared = SharedMemory.Allocate<float>(1440);
 
             // Do the calculation
             for (var aline = aline_init; aline == aline_init; aline++)  // NOTE: constant here should be passed in
@@ -244,7 +243,7 @@ namespace viper.corelib.horizon
                         var slopef = (float)slope;
 
                         var horizon_index = (int)(0.5d + 1439 * (azimuth / (2d * Math.PI)));
-                        Atomic.Max(horizon_shared.GetVariableView(horizon_index), slopef);
+                        Atomic.Max(ref horizon_shared[horizon_index], slopef);
                         //horizon_shared[horizon_index] = 1f;
                     }
 
@@ -339,7 +338,7 @@ namespace viper.corelib.horizon
                         gpu_heights.CopyFrom(relativeHeights, 0, 0, gpu_heights_size);
                         gpu_horizon.CopyFrom(cpu_horizon, 0, 0, cpu_horizon_size);
 
-                        var kernel = accelerator.LoadSharedMemoryStreamKernel1<GroupedIndex, ArrayView<short>, ArrayView<float>, ArrayView<float>, int, int, ArrayView<float>>(Test3Kernel);
+                        var kernel = accelerator.LoadStreamKernel<GroupedIndex, ArrayView<short>, ArrayView<float>, ArrayView<float>, int, int>(Test3Kernel);
 
                         var groupSize = Math.Min(accelerator.MaxNumThreadsPerGroup, 128);
                         var dimension = new GroupedIndex(128, groupSize);
@@ -374,13 +373,12 @@ namespace viper.corelib.horizon
             ArrayView<float> matrices,
             ArrayView<float> horizon,
             int a_line,
-            int a_sample,
-
-            [SharedMemory(1440)]
-            ArrayView<float> horizon_shared)
+            int a_sample)
         {
             var idx = index.GroupIdx;
             const int patch_size = 128;
+
+            ArrayView<float> horizon_shared = SharedMemory.Allocate<float>(1440);
 
             // Do the calculation
             var aline = index.GridIdx;
@@ -459,7 +457,7 @@ namespace viper.corelib.horizon
                     var slopef = (float)slope;
 
                     var horizon_index = (int)(0.5d + 1439 * (azimuth / (2d * Math.PI)));
-                    Atomic.Max(horizon_shared.GetVariableView(horizon_index), slopef);
+                    Atomic.Max(ref horizon_shared[horizon_index], slopef);
                     //horizon_shared[horizon_index] = 1f;
                 }
 

@@ -61,7 +61,7 @@ namespace viper.corelib.lighting
                 var patch = TerrainPatch.FromId(id, observer_height);
                 (File.Exists(patch.Path) ? result : queue).Add(patch);
             }
-            if (queue.Count>0 && generate_horizons_if_needed)
+            if (queue.Count > 0 && generate_horizons_if_needed)
             {
                 Console.WriteLine($"Generating horizons for observer {observer_height}");
                 var gpuProcessor = ViperEnvironment.Processor as GPUHorizons;

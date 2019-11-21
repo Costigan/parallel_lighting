@@ -133,7 +133,7 @@ namespace viper.corelib.lighting
 
                     var launchDimension = new Index2(TerrainPatch.DefaultSize, TerrainPatch.DefaultSize);
 
-                    var kernel1 = accelerator.LoadSharedMemoryStreamKernel1<Index2, ArrayView<short>, ArrayView<float>, ArrayView<short>, int, int>(RiseKernel1);
+                    var kernel1 = accelerator.LoadStreamKernel<Index2, ArrayView<short>, ArrayView<float>, ArrayView<short>, int, int>(RiseKernel1);
 
                 }
             }

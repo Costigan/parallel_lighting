@@ -93,7 +93,7 @@ namespace viper.corelib.lighting
 
             {
                 var path_combined = LandingSiteDataset.AppendToFilename(path, "_combined");
-                utilities.GeotiffHelper.WriteArrayAsGeotiff(combined, Region, path_combined);
+                GeotiffHelper.WriteArrayAsGeotiff(combined, Region, path_combined);
                 WriteSafeHavenOverlay(combined, path_combined);
             }
 
@@ -101,7 +101,7 @@ namespace viper.corelib.lighting
             {
                 var time = times_start_to_stop[indices_of_minima_earth_elevation[i]];
                 var path1 = LandingSiteDataset.AppendToFilename(path, "_" + time.ToString("yyyy-MM-dd"));
-                utilities.GeotiffHelper.WriteArrayAsGeotiff(month_images[i], Region, path1);
+                GeotiffHelper.WriteArrayAsGeotiff(month_images[i], Region, path1);
                 WriteSafeHavenOverlay(month_images[i], path1);
             }
         }

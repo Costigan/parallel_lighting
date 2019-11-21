@@ -130,7 +130,7 @@ namespace viper.corelib.horizon
                         //patch.InitializeHorizons();  // Unload the horizon data (100MB)
                     }
                     stopwatch.Stop();
-                    var seconds_per_patch = far_field.Count == 0 ? 0f : (stopwatch.ElapsedMilliseconds / 1000f) / far_field.Count;
+                    var seconds_per_patch = far_field.Count == 0 ? 0f : stopwatch.ElapsedMilliseconds / 1000f / far_field.Count;
                     Console.WriteLine($"  Finished [{patch.Line},{patch.Sample}] time={stopwatch.Elapsed}.  sec/patch={seconds_per_patch}");
 
                     // Update queue on disk
@@ -224,7 +224,10 @@ namespace viper.corelib.horizon
                             new Index2(128, 128), // (data.Length + groupSize - 1) / groupSize,  // Compute the number of groups (round up)
                             new Index2(1, 128));
 
-                        var kernel1 = accelerator.LoadSharedMemoryStreamKernel1<GroupedIndex2, ArrayView<float>, ArrayView<float>, ArrayView<int>, ArrayView<float>, float, ArrayView<int>>(FarFieldKernel1);
+                        //var kernel1 = accelerator.LoadSharedMemoryStreamKernel1<GroupedIndex2, ArrayView<float>, ArrayView<float>, ArrayView<int>, ArrayView<float>, float, ArrayView<int>>(FarFieldKernel1);
+
+                        var kernel1 = accelerator.LoadStreamKernel<GroupedIndex2, ArrayView<float>, ArrayView<float>, ArrayView<int>, ArrayView<float>, float>(FarFieldKernel1);
+
 
                         //var stopwatch = new Stopwatch();
                         //stopwatch.Start();
@@ -324,15 +327,14 @@ namespace viper.corelib.horizon
             ArrayView<float> matrices,
             ArrayView<int> horizon,
             ArrayView<float> test_array,
-            float observer_height_in_km,
-
-            [SharedMemory(1440)]
-            ArrayView<int> horizon_shared)
+            float observer_height_in_km)
         {
             var target_line = index.GridIdx.Y;
             var target_sample = index.GridIdx.X;
             var caster_line = index.GroupIdx.Y;
             Debug.Assert(index.GroupIdx.X == 1);
+
+            ArrayView<int> horizon_shared = SharedMemory.Allocate<int>(1440);
 
             // Copy horizon for a[target_line,target_sample] into shared memory
             {
@@ -384,8 +386,8 @@ namespace viper.corelib.horizon
                 // Adjust for solar array height
                 z -= observer_height_in_km;
 
-                var azimuth = GPUMath.Atan2(y, x) + GPUMath.PI;  // [0,2 PI]
-                var alen = GPUMath.Sqrt(x * x + y * y);
+                var azimuth = Atan2(y, x) + XMath.PI;  // [0,2 PI]
+                var alen = XMath.Sqrt(x * x + y * y);
                 var slope = z / alen;
 
                 var slopem = slope > 2f ? 2f : slope;
@@ -394,8 +396,8 @@ namespace viper.corelib.horizon
 
                 var slopei = (int)(slopem * 1000000);
 
-                var horizon_index = (int)(0.5f + 1439 * (azimuth / (2f * GPUMath.PI)));
-                Atomic.Max(horizon_shared.GetVariableView(horizon_index), slopei);
+                var horizon_index = (int)(0.5f + 1439 * (azimuth / (2f * XMath.PI)));
+                Atomic.Max(ref horizon_shared[horizon_index], slopei);
 
                 if (caster_sample == 0 && caster_line == 0 && target_line == 0 && target_sample == 0)
                 {
@@ -430,7 +432,7 @@ namespace viper.corelib.horizon
             }
         }
 
-        static int SlopeToEncoding(float slope) => (int)((slope / 4f) * 1000000);
+        static int SlopeToEncoding(float slope) => (int)(slope / 4f * 1000000);
         static float EncodingToSlope(int encoding) => 4f * encoding / 1000000f;  // Haven't looked at the numerics closely to see whether these are exact inverses.  Don't care enough yet.
 
         /// <summary>
@@ -550,7 +552,7 @@ namespace viper.corelib.horizon
                 var ptr = 0;
                 var ctr = 0;
                 while (ptr < cpu_caster_points.Length)
-                    if (0 == (ctr++) % decimate)
+                    if (0 == ctr++ % decimate)
                         sw.WriteLine($"{cpu_caster_points[ptr++]},{cpu_caster_points[ptr++]},{cpu_caster_points[ptr++]}");
                     else
                         ptr += 3;
@@ -590,7 +592,7 @@ namespace viper.corelib.horizon
                     var ctr = 0;
                     while (ptr < cpu_caster_points.Length)
                     {
-                        if (0 == (ctr++) % decimate)
+                        if (0 == ctr++ % decimate)
                         {
                             var v = new Vector3(cpu_caster_points[ptr++], cpu_caster_points[ptr++], cpu_caster_points[ptr++]);
                             var v1 = Vector3.Transform(v, mat);
@@ -677,8 +679,8 @@ namespace viper.corelib.horizon
 
             // Work out the direction vector
             var ray_angle = 3.141592653589f * 2f * index / (TerrainPatch.NearHorizonOversample * Horizon.HorizonSamples);
-            var ray_cos = GPUMath.Cos(ray_angle);
-            var ray_sin = GPUMath.Sin(ray_angle);
+            var ray_cos = XMath.Cos(ray_angle);
+            var ray_sin = XMath.Sin(ray_angle);
 
             // Work out the direction in horizon space (the horizon offset).  This duplicates the calculation of the first point.
             // I'm duplicating code rather than refactoring, because there would be a lot of values to pass
@@ -724,7 +726,7 @@ namespace viper.corelib.horizon
                 var y = x_patch * row0y + y_patch * row1y + z_patch * row2y + row3y;
                 //var z = x_patch * row0z + y_patch * row1z + z_patch * row2z + row3z;
 
-                azimuth_rad = GPUMath.Atan2(y, x) + GPUMath.PI;  // [0,2PI]
+                azimuth_rad = Atan2(y, x) + XMath.PI;  // [0,2PI]
             }
 
             var normalized_azimuth = (Horizon.HorizonSamples - 1) * azimuth_rad / (2d * Math.PI);  // range [0,1)
@@ -795,7 +797,7 @@ namespace viper.corelib.horizon
                 // Adjust for solar array height (this is temporary, and I'm not sure we want this in the final version)
                 z -= observer_height_in_km;
 
-                var alen = GPUMath.Sqrt(x * x + y * y);
+                var alen = XMath.Sqrt(x * x + y * y);
                 var slope = z / alen;
 
                 if (slope > highest_slope)
@@ -814,6 +816,50 @@ namespace viper.corelib.horizon
             }
 
             horizon[horizon_index] = highest_slope;
+        }
+
+        // https://developer.download.nvidia.com/cg/atan2.html
+        public static float Atan2(float y, float x)
+        {
+            float t0, t1, t3, t4;
+
+            t3 = XMath.Abs(x);
+            t1 = XMath.Abs(y);
+            t0 = XMath.Max(t3, t1);
+            t1 = XMath.Min(t3, t1);
+            t3 = 1f / t0;
+            t3 = t1 * t3;
+
+            t4 = t3 * t3;
+            t0 = -0.013480470f;
+            t0 = t0 * t4 + 0.057477314f;
+            t0 = t0 * t4 - 0.121239071f;
+            t0 = t0 * t4 + 0.195635925f;
+            t0 = t0 * t4 - 0.332994597f;
+            t0 = t0 * t4 + 0.999995630f;
+            t3 = t0 * t3;
+
+            t3 = (XMath.Abs(y) > XMath.Abs(x)) ? 1.570796327f - t3 : t3;
+            t3 = (x < 0) ? 3.141592654f - t3 : t3;
+            t3 = (y < 0) ? -t3 : t3;
+
+            return t3;
+        }
+
+        // https://developer.download.nvidia.com/cg/asin.html
+        public static float Asin(float x)
+        {
+            float negate = x < 0 ? 1f : 0f; // float(x < 0);
+            x = XMath.Abs(x);
+            float ret = -0.0187293f;
+            ret *= x;
+            ret += 0.0742610f;
+            ret *= x;
+            ret -= 0.2121144f;
+            ret *= x;
+            ret += 1.5707288f;
+            ret = 3.14159265358979f * 0.5f - XMath.Sqrt(1.0f - x) * ret;
+            return ret - 2 * negate * ret;
         }
     }
 }

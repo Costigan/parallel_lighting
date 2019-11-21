@@ -32,7 +32,7 @@ namespace viper.corelib.horizon
         //public static float LonFactor = 1f;  
         //public static float LatP;
         public const float LonFactor = 1f;           // appropriate for south
-        public const float LatP = -GPUMath.PI / 2f;
+        public const float LatP = -XMath.PI / 2f;
 
         public const int TerrainSize = InMemoryInt16Terrain.Samples;
 
@@ -273,9 +273,9 @@ namespace viper.corelib.horizon
                 var slope = gpu_slope[slope_idx];
 
                 // Work out the direction vector
-                var ray_rad = GPUMath.PI * 2f * slope_idx / cpu_slope_size;  // 0 deg in ME frame points toward the earth
-                var ray_cos = GPUMath.Cos(ray_rad);  // varies the line
-                var ray_sin = GPUMath.Sin(ray_rad);  // varies the sample
+                var ray_rad = XMath.PI * 2f * slope_idx / cpu_slope_size;  // 0 deg in ME frame points toward the earth
+                var ray_cos = XMath.Cos(ray_rad);  // varies the line
+                var ray_sin = XMath.Sin(ray_rad);  // varies the sample
 
                 // iterate over the ranges
                 var range_limit = gpu_range_limit[slope_idx];
@@ -317,7 +317,7 @@ namespace viper.corelib.horizon
 
                     var dx = caster_x - center_x;
                     var dy = caster_y - center_y;
-                    var d = GPUMath.Sqrt(dx * dx + dy * dy); // horizontal distance in moon radius units
+                    var d = XMath.Sqrt(dx * dx + dy * dy); // horizontal distance in moon radius units
 
                     var light_ray_height = caster_z - slope * d;  // negative slope gets higher as light ray goes toward the center
                     var ray_rise_height = light_ray_height - center_z;  // moon radius units
@@ -328,7 +328,7 @@ namespace viper.corelib.horizon
                     //var deltaHeightInMeters = (caster_z - center_z) * 1000f;
                     //var rise2 = deltaHeightInMeters - dInMeters * slope;
                     
-                    rise = GPUMath.Max(rise, ray_rise_meters);
+                    rise = XMath.Max(rise, ray_rise_meters);
                 }
             }
 
@@ -340,21 +340,23 @@ namespace viper.corelib.horizon
         {
             var radius = MoonRadius + height_meters / 1000f;
             GetLatLon(line, sample, out float lat, out float lon);
-            z = radius * GPUMath.Sin(lat);
-            var c = radius * GPUMath.Cos(lat);
-            x = c * GPUMath.Cos(lon);  // TODO: Not sure about these
-            y = c * GPUMath.Sin(lon);
+            z = radius * XMath.Sin(lat);
+            var c = radius * XMath.Cos(lat);
+            x = c * XMath.Cos(lon);  // TODO: Not sure about these
+            y = c * XMath.Sin(lon);
         }
 
         static void GetLatLon(float line, float sample, out float latitude, out float longitude)
         {
             var x = (sample - S0) * Scale;
             var y = (L0 - line) * Scale;
-            var P = GPUMath.Sqrt(x * x + y * y);
-            var C = 2f * GPUMath.Atan2(P, 2f * MoonRadius);
-            latitude = GPUMath.Asin(GPUMath.Cos(C) * GPUMath.Sin(LatP) + (y == 0 ? 0 : y * GPUMath.Sin(C) * GPUMath.Cos(LatP) / P));
-            longitude = LonP + GPUMath.Atan2(x, y * LonFactor);
+            var P = XMath.Sqrt(x * x + y * y);
+            var C = 2f * GPUHorizons.Atan2(P, 2f * MoonRadius);
+            latitude = GPUHorizons.Asin(XMath.Cos(C) * XMath.Sin(LatP) + (y == 0 ? 0 : y * XMath.Sin(C) * XMath.Cos(LatP) / P));
+            longitude = LonP + GPUHorizons.Atan2(x, y * LonFactor);
         }
+
+
 
         #region testing
 
