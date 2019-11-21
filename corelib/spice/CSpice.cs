@@ -36,7 +36,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="filename">Name of the file to be loaded.</param>
         /// <param name="handle">Loaded file's handle. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spklef_c([MarshalAs(UnmanagedType.LPStr)] string filename,
                                            ref int handle);
 
@@ -51,7 +51,7 @@ namespace viper.corelib.spice
         /// <param name="obs">Observing body name.</param>
         /// <param name="starg">State of target.</param>
         /// <param name="lt">One way light time between observer and target.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkezr_c([MarshalAs(UnmanagedType.LPStr)] string targ,
                                            double et,
                                            [MarshalAs(UnmanagedType.LPStr)] string refer,
@@ -72,7 +72,7 @@ namespace viper.corelib.spice
         /// <param name="obs">Observing body name.</param>
         /// <param name="starg">State of target.</param>
         /// <param name="lt">One way light time between observer and target.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkez_c(int targ,
                                    double et,
                                    [MarshalAs(UnmanagedType.LPStr)] string refer,
@@ -85,14 +85,14 @@ namespace viper.corelib.spice
         /// Load one or more SPICE kernels into a program.
         /// </summary>
         /// <param name="filename">Name of SPICE kernel file (text or binary).</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void furnsh_c([MarshalAs(UnmanagedType.LPStr)] string filename);
 
         /// <summary>
         /// Unload a SPICE kernel.
         /// </summary>
         /// <param name="filename">Name of SPICE kernel file (text or binary).</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void unload_c([MarshalAs(UnmanagedType.LPStr)] string filename);
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="pictur">A string representing an epoch.</param>
         /// <param name="et">The equivalent value in seconds past J2000, TDB. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void str2et_c([MarshalAs(UnmanagedType.LPStr)] string pictur, ref double et);
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace viper.corelib.spice
         /// <param name="radius">Distance of the point from the origin.</param>
         /// <param name="longitude">Longitude of the point in radians.</param>
         /// <param name="latitude">Latitude of the point in radians.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void reclat_c(double[] rectan,
                                            ref double radius,
                                            ref double longitude,
@@ -127,7 +127,7 @@ namespace viper.corelib.spice
         /// <param name="obs">Observing body name.</param>
         /// <param name="ptarg">Position of target. (output)</param>
         /// <param name="lt">One way light time between observer and target. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkpos_c([MarshalAs(UnmanagedType.LPStr)] string targ,
                                            double et,
                                            [MarshalAs(UnmanagedType.LPStr)] string refFrame,
@@ -146,7 +146,7 @@ namespace viper.corelib.spice
         /// <param name="obs">Observing body NAIF ID code.</param>
         /// <param name="ptarg">Position of target.</param>
         /// <param name="lt">One way light time between observer and target.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkezp_c(int targ,
                                            double et,
                                            [MarshalAs(UnmanagedType.LPStr)] string refFrame,
@@ -164,7 +164,7 @@ namespace viper.corelib.spice
         /// <param name="obs">Observing body.</param>
         /// <param name="pos">Position of target. (output)</param>
         /// <param name="lt">Light time. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkgps_c(int targ,
                                            double et,
                                            [MarshalAs(UnmanagedType.LPStr)] string refFrame,
@@ -182,7 +182,7 @@ namespace viper.corelib.spice
         /// <param name="obs">Observing body.</param>
         /// <param name="state">State of target. (output)</param>
         /// <param name="lt">Light time. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkgeo_c(int targ,
                                            double et,
                                            [MarshalAs(UnmanagedType.LPStr)] string refFrame,
@@ -206,7 +206,7 @@ namespace viper.corelib.spice
         /// <param name="obsref">Frame of observer position</param>
         /// <param name="state">Output: State of target with respect to observer</param>
         /// <param name="lt">Output: One way light time between target and observer</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void spkcpo_c([MarshalAs(UnmanagedType.LPStr)] string target,
                                    double et,
                                    [MarshalAs(UnmanagedType.LPStr)] string outref,
@@ -228,7 +228,7 @@ namespace viper.corelib.spice
         /// <param name="lon">Planetographic longitude of the point (radians). (output)</param>
         /// <param name="lat">Planetographic latitude of the point (radians). (output)</param>
         /// <param name="alt">Altitude of the point above reference spheroid. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void recpgr_c([MarshalAs(UnmanagedType.LPStr)] string body,
                                            double[] rectan,
                                            double re,
@@ -247,7 +247,7 @@ namespace viper.corelib.spice
         /// <param name="re">Equatorial radius of the reference spheroid.</param>
         /// <param name="f">Flattening coefficient.</param>
         /// <param name="rectan">Rectangular coordinates of the point.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void pgrrec_c([MarshalAs(UnmanagedType.LPStr)] string body,
                                            double lon,
                                            double lat,
@@ -266,7 +266,7 @@ namespace viper.corelib.spice
         /// <param name="prec">is the number of digits of precision to which fractional seconds (for Calendar and Day-of-Year formats) or days (for Julian Date format) are to be computed. If PREC is zero or smaller, no decimal point is appended to the output string. If PREC is greater than 14, it is treated as 14.</param>
         /// <param name="lenout">The allowed length of the output string.  This length must large enough to hold the output string plus the null terminator.  If the output string is expected to have x characters, lenout must be x + 1.</param>
         /// <param name="utcstr">is the output time string equivalent to the input epoch, in the specified format.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         private static extern void et2utc_c(double et,
                                             [MarshalAs(UnmanagedType.LPStr)] string format,
                                             int prec,
@@ -285,7 +285,7 @@ namespace viper.corelib.spice
         /// <param name="linedr">Direction vector of line</param>
         /// <param name="pnear">Nearest point on ellipsoid to line (output)</param>
         /// <param name="dist">Distance of ellipsoid from line (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void npedln_c(double a,
                                            double b,
                                            double c,
@@ -303,7 +303,7 @@ namespace viper.corelib.spice
         /// <param name="point">A second point</param>
         /// <param name="pnear">Nearest point on the line to point</param>
         /// <param name="dist">Distance between point and pnear</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void nplnpt_c(double[] linpt,
                                            double[] lindir,
                                            double[] point,
@@ -320,7 +320,7 @@ namespace viper.corelib.spice
         /// <param name="c"></param>
         /// <param name="point"></param>
         /// <param name="found"></param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void surfpt_c(double[] positn,
                                            double[] u,
                                            double a,
@@ -351,7 +351,7 @@ namespace viper.corelib.spice
         /// <param name="c">Length of ellipsoid semi-axis lying on the z-axis.</param>
         /// <param name="viewpt">Location of viewing point.</param>
         /// <param name="limb">Limb of ellipsoid as seen from viewing point. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void edlimb_c(double a,
                                            double b,
                                            double c,
@@ -365,7 +365,7 @@ namespace viper.corelib.spice
         /// <param name="center">Center of the ellipse (output)</param>
         /// <param name="smajor">semi-major axis of the ellipse (output)</param>
         /// <param name="sminor">semi-minor axis of the ellipse (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void el2cgv_c(ref SpiceEllipse ellipse,
                                            double[] center,
                                            double[] smajor,
@@ -378,7 +378,7 @@ namespace viper.corelib.spice
             return buf.ToString();
         }
 
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         // private static extern void timout_c(ref double et, [MarshalAs(UnmanagedType.LPStr)]string pictur, ref int lenout, char[] buf);
         public static extern void timout_c(double et,
                                            [MarshalAs(UnmanagedType.LPStr)] string pictur,
@@ -394,7 +394,7 @@ namespace viper.corelib.spice
             public double constant;
         }
 
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void psv2pl_c(double[] point,
                                            double[] span1,
                                            double[] span2,
@@ -408,7 +408,7 @@ namespace viper.corelib.spice
         /// <param name="plane">A CSPICE plane.</param>
         /// <param name="nxpts">Number of intersection points of ray and plane (output)</param>
         /// <param name="xpt">Intersection point, if nxpts = 1 (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void inrypl_c(double[] vertex,
                                            double[] dir,
                                            ref SpicePlane plane,
@@ -424,7 +424,7 @@ namespace viper.corelib.spice
         /// <param name="ellips">A CSPICE ellipse.</param>
         /// <param name="pnear">Nearest point on ellipse to input point.</param>
         /// <param name="dist">Distance of input point to ellipse.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void npelpt_c(double[] point,
                                            ref SpiceEllipse ellips,
                                            double[] pnear,
@@ -438,7 +438,7 @@ namespace viper.corelib.spice
         /// <param name="nxpts">Number of intersection points of plane and ellipse. (output)</param>
         /// <param name="xpt1">Intersection point (output)</param>
         /// <param name="xpt2">Intersection point (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void inelpl_c(ref SpiceEllipse ellips,
                                            ref SpicePlane plane,
                                            ref int nxpts,
@@ -450,7 +450,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="v1">input vector</param>
         /// <param name="vout">output vector</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void vminus_c(double[] v1,
                                            double[] vout);
 
@@ -460,7 +460,7 @@ namespace viper.corelib.spice
         /// <param name="v1">First vector to be added. </param>
         /// <param name="v2">Second vector to be added.</param>
         /// <param name="vout">Sum vector, v1 + v2.  vout can overwrite either v1 or v2. </param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void vadd_c(double[] v1,
                                          double[] v2,
                                          double[] vout);
@@ -471,7 +471,7 @@ namespace viper.corelib.spice
         /// <param name="v1">First vector (minuend).</param>
         /// <param name="v2">Second vector (subtrahend).</param>
         /// <param name="vout">Difference vector, v1 - v2. vout can overwrite either v1 or v2.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void vsub_c(double[] v1,
                                          double[] v2,
                                          double[] vout);
@@ -482,7 +482,7 @@ namespace viper.corelib.spice
         /// <param name="v1">Left vector for cross product.</param>
         /// <param name="v2">Right vector for cross product.</param>
         /// <param name="vout">Normalized cross product (v1xv2) / |v1xv2|. (output)</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ucrss_c(double[] v1,
                                           double[] v2,
                                           double[] vout);
@@ -495,7 +495,7 @@ namespace viper.corelib.spice
         /// <param name="to">Name of the frame to transform to.</param>
         /// <param name="et">Epoch of the rotation matrix.</param>
         /// <param name="rotate">A rotation matrix.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void pxform_c([MarshalAs(UnmanagedType.LPStr)] string from,
                                            [MarshalAs(UnmanagedType.LPStr)] string to,
                                            double et,
@@ -526,7 +526,7 @@ namespace viper.corelib.spice
         /// <param name="y">y</param>
         /// <param name="z">z</param>
         /// <param name="v">Equivalent 3-vector.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void vpack_c(double x,
                                           double y,
                                           double z,
@@ -536,7 +536,7 @@ namespace viper.corelib.spice
         /// This routine returns the 3x3 identity matrix
         /// </summary>
         /// <param name="m">Output: the 3x3 identity matrix</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ident_c(double[,] m);
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace viper.corelib.spice
         /// <param name="m1">3x3 double precision matrix</param>
         /// <param name="vin">3-dimensional double precision vector</param>
         /// <param name="vout">3-dimensinoal double precision vector. vout is the product m1*vin</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mxv_c(double[,] m1,
                                         double[] vin,
                                         double[] vout);
@@ -556,7 +556,7 @@ namespace viper.corelib.spice
         /// <param name="m1">3x3 double precision matrix.</param>
         /// <param name="vin">3-dimensional double precision vector.</param>
         /// <param name="vout">3-dimensional double precision vector. vout is the product m1**t * vin.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mtxv_c(double[,] m1,
                                         double[] vin,
                                         double[] vout);
@@ -566,7 +566,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="r">A rotation matrix.</param>
         /// <param name="q">A unit quaternion representing `r'.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void m2q_c(double[,] r,
                                         double[] q);
 
@@ -576,7 +576,7 @@ namespace viper.corelib.spice
         /// <param name="m1">3x3 double precision matrix.</param>
         /// <param name="m2">3x3 double precision matrix.</param>
         /// <param name="mout">3x3 double precision matrix. mout is the product m1*m2.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mxm_c(double[,] m1,
                                         double[,] m2,
                                         double[,] mout);
@@ -588,7 +588,7 @@ namespace viper.corelib.spice
         /// <param name="axis">Rotation axis.</param>
         /// <param name="angle">Rotation angle, in radians.</param>
         /// <param name="r">Rotation matrix corresponding to axis and angle.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void axisar_c(double[] axis,
                                            double angle,
                                            double[,] r);
@@ -602,7 +602,7 @@ namespace viper.corelib.spice
         /// <param name="angle">Angle of rotation in radians</param>
         /// <param name="iaxis">Axis of rotation (X=1, Y=2, Z=3)</param>
         /// <param name="vout">Resulting vector [angle] expressed in the new coordinate system</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void rotvec_c(double[] v1,
                                            double angle,
                                            int iaxis,
@@ -612,7 +612,7 @@ namespace viper.corelib.spice
         /// Compute the magnitude of a double precision, 3-dimensional vector.
         /// </summary>
         /// <param name="v1">Vector whose magnitude is to be found</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern double vnorm_c(double[] v1);
 
         /// <summary>
@@ -621,7 +621,7 @@ namespace viper.corelib.spice
         /// <param name="v1">This may be any 3-dimensional, double precision vector.</param>
         /// <param name="v2">This may be any 3-dimensional, double precision vector.</param>
         /// <returns>The function returns the value of the dot product of v1 and v2.</returns>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern double vdot_c(double[] v1, double[] v2);
 
         /// <summary>
@@ -631,7 +631,7 @@ namespace viper.corelib.spice
         /// <param name="v2">Right hand vector for cross product</param>
         /// <param name="vout">Cross product v1xv2.  vout can overwrite either v1 or v2.</param>
         /// <returns></returns>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern double vcrss_c(double[] v1,
                                             double[] v2,
                                             double[] vout);
@@ -651,7 +651,7 @@ namespace viper.corelib.spice
         /// <param name="trgepc">Sub-observer point epoch.</param>
         /// <param name="srfvec">Vector from observer to sub-observer point.</param>
         /// <returns></returns>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern double subpnt_c([MarshalAs(UnmanagedType.LPStr)] string method,
                                              [MarshalAs(UnmanagedType.LPStr)] string target,
                                              double et,
@@ -672,7 +672,7 @@ namespace viper.corelib.spice
         /// <param name="maxn">Maximum number of values that may be returned.</param>
         /// <param name="dim">Number of values returned.</param>
         /// <param name="values">Values.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void bodvcd_c(Int32 bodyid,
                                            [MarshalAs(UnmanagedType.LPStr)] string item,
                                            Int32 maxn,
@@ -689,7 +689,7 @@ namespace viper.corelib.spice
         /// <param name="plndef">Vector defining (with axdef) a principal plane.</param>
         /// <param name="indexp">Second axis number (with indexa) of principal plane.</param>
         /// <param name="mout">Output rotation matrix.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void twovec_c(double[] axdef,
                                            int indexa,
                                            double[] plndef,
@@ -701,7 +701,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="m1">Matrix to be inverted.</param>
         /// <param name="mout">Inverted matrix (m1)**-1.  If m1 is singular, then mout will be the zero matrix.   mout can overwrite m1. </param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void invert_c(double[,] m1,
                                            double[,] mout);
 
@@ -711,7 +711,7 @@ namespace viper.corelib.spice
         /// <param name="m1">3x3 double precision matrix.</param>
         /// <param name="m2">3x3 double precision matrix.</param>
         /// <param name="mout">The produce m1 transpose times m2.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mtxm_c(double[,] m1,
                                          double[,] m2,
                                          double[,] mout);
@@ -721,7 +721,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="q">A unit quaternion.</param>
         /// <param name="r">A rotation matrix corresponding to `q'.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void q2m_c(double[] q,
                                         double[,] r);
 
@@ -736,7 +736,7 @@ namespace viper.corelib.spice
         /// <param name="angle3">Third Euler angle</param>
         /// <param name="angle2">Second Euler angle</param>
         /// <param name="angle1">First Euler angle</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void m2eul_c(double[,] m1,
                                  int axis3,
                                  int axis2,
@@ -755,7 +755,7 @@ namespace viper.corelib.spice
         /// <param name="axis2">Number of second rotation axis</param>
         /// <param name="axis1">Number of first rotation axis</param>
         /// <param name="m1">Product of the 3 rotations</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void eul2m_c(
             double angle3,
             double angle2,
@@ -770,7 +770,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="frname">The name of some reference frame.</param>
         /// <param name="frcode">The SPICE ID code of the frame.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void namfrm_c([MarshalAs(UnmanagedType.LPStr)] string frname,
                                            ref Int32 frcode);
 
@@ -782,7 +782,7 @@ namespace viper.corelib.spice
         /// <param name="longitude">Longitude of point in radians</param>
         /// <param name="latitude">Latitude of point in radians</param>
         /// <param name="rectan">Rectangular coordinates of the point</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void srfrec_c(int body,
                                    double longitude,
                                    double latitude,
@@ -795,7 +795,7 @@ namespace viper.corelib.spice
         /// <param name="ifname">The internal filename for the CK.</param>
         /// <param name="ncomch">The number of characters to reserve for comments.</param>
         /// <param name="handle">The handle of the opened CK file.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ckopn_c([MarshalAs(UnmanagedType.LPStr)] string fname,
                                           [MarshalAs(UnmanagedType.LPStr)] string ifname,
                                           int ncomch,
@@ -805,7 +805,7 @@ namespace viper.corelib.spice
         /// Close an open CK file.
         /// </summary>
         /// <param name="handle">Handle of the CK file to be closed.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ckcls_c(int handle);
 
         /// <summary>
@@ -824,7 +824,7 @@ namespace viper.corelib.spice
         /// <param name="avvs">Angular velocity vectors.</param>
         /// <param name="nints">Number of intervals.</param>
         /// <param name="starts">Encoded SCLK interval start times.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ckw03_c(int handle,
                                           double begtim,
                                           double endtim,
@@ -938,7 +938,7 @@ namespace viper.corelib.spice
         /// <param name="cmat">C-matrix pointing data.</param>
         /// <param name="clkout">Output encoded spacecraft clock time.</param>
         /// <param name="found">True when requested pointing is available.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ckgp_c(int inst,
                                          double sclkdp,
                                          double tol,
@@ -956,7 +956,7 @@ namespace viper.corelib.spice
         /// <param name="sc">NAIF spacecraft ID code.</param>
         /// <param name="et">Ephemeris time, seconds past J2000.</param>
         /// <param name="sclkdp">SCLK, encoded as ticks since spacecraft clock start.  sclkdp need not be integral.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void sce2c_c(int sc,
                                          double et,
                                          ref double sclkdp);
@@ -967,7 +967,7 @@ namespace viper.corelib.spice
         /// <param name="sc">NAIF spacecraft ID code.</param>
         /// <param name="sclkdp">SCLK, encoded as ticks since spacecraft clock start</param>
         /// <param name="et">Ephemeris time, seconds past J2000.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void sct2e_c(int sc,
                                          double sclkdp,
                                          ref double et);
@@ -979,7 +979,7 @@ namespace viper.corelib.spice
         /// <param name="ticks">Encoded representation of a spacecraft clock count.</param>
         /// <param name="lenout">Maximum allowed length of output string.</param>
         /// <param name="clkstr">Character representation of a clock count.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void scfmt_c(int sc,
                                           double ticks,
                                           int lenout,
@@ -994,7 +994,7 @@ namespace viper.corelib.spice
         /// <param name="clkstr">is an input argument when op is "SET."  It takes the 
         ///    values,  "ABORT",  "IGNORE", "REPORT", "RETURN", and 
         ///    "DEFAULT".</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void errprt_c([MarshalAs(UnmanagedType.LPStr)] string op,
                                           int lenout,
                                           StringBuilder clkstr);
@@ -1008,7 +1008,7 @@ namespace viper.corelib.spice
         ///    the value indicated by action."</param>
         /// <param name="lenout">Length of list for output.</param>
         /// <param name="clkstr"></param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void erract_c([MarshalAs(UnmanagedType.LPStr)] string op,
                                           int lenout,
                                           StringBuilder clkstr);
@@ -1018,7 +1018,7 @@ namespace viper.corelib.spice
         /// failed_c is the CSPICE status indicator.
         /// </summary>
         /// <returns></returns>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern int failed_c();
 
         /// <summary>
@@ -1026,7 +1026,7 @@ namespace viper.corelib.spice
         /// As a result, the status routine, failed_c, will return a value
         /// of SPICEFALSE
         /// </summary>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void reset_c();
 
         /// <summary>
@@ -1034,7 +1034,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="card">Cardinality of (number of elements in) the cell.</param>
         /// <param name="cell">The cell.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void scard_c(int card,
                                           ref SpiceDoubleCell cell);
 
@@ -1043,7 +1043,7 @@ namespace viper.corelib.spice
         /// </summary>
         /// <param name="cell">Input window </param>
         /// <returns>The function returns the window cardinality of the window.</returns>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern int wncard_c(ref SpiceDoubleCell cell);
 
         /// <summary>
@@ -1125,7 +1125,7 @@ namespace viper.corelib.spice
         ///
         ///          If `cover' contains no data on input, its size and
         ///          cardinality still must be initialized.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ckcov_c([MarshalAs(UnmanagedType.LPStr)] string ck,
                                           int idcode,
                                           int needav,
@@ -1156,7 +1156,7 @@ namespace viper.corelib.spice
         /// <param name="n">Index of interval to be fetched.</param>
         /// <param name="left">Left endpoint of the nth interval.</param>
         /// <param name="right">Right endpoint of the nth interval.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void wnfetd_c(ref SpiceDoubleCell cell,
                                            int n,
                                            ref double left,
@@ -1177,7 +1177,7 @@ namespace viper.corelib.spice
         /// <param name="phase">Phase angle at the surface point.</param>
         /// <param name="solar">Solar incidence angle at the surface point.</param>
         /// <param name="emissn">Emission angle at the surface point.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ilumin_c([MarshalAs(UnmanagedType.LPStr)] string method,
                                            [MarshalAs(UnmanagedType.LPStr)] string target,
                                            double et,
@@ -1201,7 +1201,7 @@ namespace viper.corelib.spice
         /// <param name="maxn">Maximum number of values that may be returned.</param>
         /// <param name="dim">Number of values returned.</param>
         /// <param name="values">Values.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void bodvcd_c(int bodyid,
                                            [MarshalAs(UnmanagedType.LPStr)] string item,
                                            int maxn,
@@ -1235,7 +1235,7 @@ namespace viper.corelib.spice
         ///      are used to describe all three types (elliptic,
         ///      hyperbolic, and parabolic) of conic orbit.
         /// </param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void oscelt_c(double[] state,
                                            double et,
                                            double mu,
@@ -1250,7 +1250,7 @@ namespace viper.corelib.spice
         /// <param name="elts">Conic elements (see oscelt_c)</param>
         /// <param name="et">Input time</param>
         /// <param name="state">State of orbiting body at et</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void conics_c(double[] elts,
                                            double et,
                                            double[] state);
@@ -1263,7 +1263,7 @@ namespace viper.corelib.spice
         /// <param name="name">The kernel pool name to associate with dvals.</param>
         /// <param name="n">The number of values to insert.</param>
         /// <param name="dvals">An array of values to insert into the kernel pool.</param>
-        [DllImport("cspice.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("spice.so", CallingConvention = CallingConvention.Cdecl)]
         public static extern void pdpool_c([MarshalAs(UnmanagedType.LPStr)] string name,
                                            int n,
                                            ref double dvals);

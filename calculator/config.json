@@ -1,4 +1,7 @@
 ﻿{
+  "mosbox_NorthDEM20": "/home/mshirley/dem/ldem_80n_20m.horizon.img",
+  "mosbox_SouthDEM20": "/home/mshirley/dem/ldem_80s_20m_fixed.horizon.img",
+
   "shirleyubuntu_NorthDEM20": "d:/viper/maps/lola/LDEM_80N_20M-2016-09-15.IMG",
   "shirleyubuntu_SouthDEM20": "d:/viper/maps/lola/LDEM_80S_20M-2017-06-15.IMG",
 
