@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -43,8 +43,10 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="12.2.1" />
-    <PackageReference Include="Gdal.Core" Version="1.0.0" />
     <PackageReference Include="ILGPU" Version="0.6.0" />
+    <PackageReference Include="MaxRev.Gdal.Core" Version="3.0.1.25" />
+    <PackageReference Include="MaxRev.Gdal.LinuxRuntime.Minimal" Version="3.0.1.2" />
+    <PackageReference Include="MaxRev.Gdal.WindowsRuntime.Minimal" Version="3.0.1.25" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.0" />
@@ -105,19 +107,19 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <None Remove="cspice.so"/>
+    <None Remove="cspice.so" />
     <Content Include="cspice.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Remove="spice/CSpice_linux.cs"/>
+    <Compile Remove="spice/CSpice_linux.cs" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
-    <None Remove="cspice.dll"/>
+    <None Remove="cspice.dll" />
     <Content Include="spice.so">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Remove="spice/CSpice.cs"/>
+    <Compile Remove="spice/CSpice.cs" />
   </ItemGroup>
 
 </Project>
