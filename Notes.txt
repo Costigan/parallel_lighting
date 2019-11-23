@@ -1,0 +1,7 @@
+Remember to set PROJ_LIB like so:
+
+PROJ_LIB=./maxrev.gdal.core.libshared/ dotnet run -p:calculator
+dotnet publish -r linux-x64 -c Release /p:PublishSingleFile=true calculator
+
+dotnet publish -r linux-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true /p:PublisReadyToRun=true calculator
+runs
