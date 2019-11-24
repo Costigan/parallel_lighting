@@ -149,7 +149,7 @@ namespace viper.corelib.horizon
         {
             if (MaxSpread != 177)
                 throw new Exception($"Unexpected value of MaxSpread={MaxSpread}");
-            var filenames = (new DirectoryInfo(ViperEnvironment.HorizonsRoot)).EnumerateFiles("*.bin").Select(fi => fi.FullName).ToList();
+            var filenames = (new DirectoryInfo(ViperEnvironment.HorizonRoot)).EnumerateFiles("*.bin").Select(fi => fi.FullName).ToList();
             foreach (var filename in filenames)
             {
                 var patch = TerrainPatch.ReadFrom(filename);

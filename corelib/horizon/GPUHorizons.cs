@@ -18,9 +18,7 @@ namespace viper.corelib.horizon
         public AcceleratorType DefaultAcceleratorType = AcceleratorType.Cuda;
         public Rectangle? BoundingBox = null;
 
-        // TODO: remove overHorizonCheck
-
-        public override void RunQueue(List<TerrainPatch> queue, Action<List<TerrainPatch>> queue_saver = null, int spread = -1, bool overHorizonCheck = true, bool centerOnly = false, bool center = true, bool unloadHorizons = true, bool writeHorizons = true)
+        public override void RunQueue(List<TerrainPatch> queue, Action<List<TerrainPatch>> queue_saver = null, int spread = -1, bool centerOnly = false, bool center = true, bool unloadHorizons = true, bool writeHorizons = true, bool overHorizonCheck = false)
         {
             var stopwatchOuter = new Stopwatch();
             stopwatchOuter.Start();
@@ -148,7 +146,7 @@ namespace viper.corelib.horizon
             Console.WriteLine($"Finished queue.  time={stopwatchOuter.Elapsed}.");
         }
 
-        List<TerrainPatch> GenerateFarField(Point id, Dictionary<int, TerrainPatch> dict)
+        public List<TerrainPatch> GenerateFarField(Point id, Dictionary<int, TerrainPatch> dict)
         {
             var center = new PatchLight { Id = id, Step = 1 };
             var other = new PatchLight { Id = new Point(0, 0), Step = 256 };

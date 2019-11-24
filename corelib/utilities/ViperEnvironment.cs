@@ -4,7 +4,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using viper.corelib.horizon;
+using viper.corelib.math;
 using viper.corelib.patch;
+using viper.corelib.spice;
 
 namespace viper.corelib.utilities
 {
@@ -27,14 +29,16 @@ namespace viper.corelib.utilities
         public static bool IsNorth => Terrain.IsNorth;
         public static string PoleDirectory => Terrain.IsNorth ? "np" : "sp";
 
-        public static string MapRoot = AppConfiguration.Get("MapRoot", @"c:/RP/tiles/np");
-        public static string HorizonsRoot = AppConfiguration.Get("HorizonsRoot", @"c:/RP/tiles/np/horizons");
-        public static string AvgPatchRoot = AppConfiguration.Get("AvgPatchRoot", @"c:/RP/tiles/np/avg_patches");
-        public static string HavenPatchRoot = AppConfiguration.Get("HavenPatchRoot", @"c:/RP/tiles/np/haven_patches");
+        public static string MapRoot = AppConfiguration.Get("MapRoot", @".");
+        public static string HorizonRoot = AppConfiguration.Get("HorizonsRoot", Path.Combine(MapRoot, HorizonDirectory));
+        public static string AvgPatchRoot = AppConfiguration.Get("AvgPatchRoot", Path.Combine(MapRoot, AvgPatchDirectory));
+        public static string HavenPatchRoot = AppConfiguration.Get("HavenPatchRoot", Path.Combine(MapRoot, HavenPatchDirectory));
+        public static string PSRPatchRoot = AppConfiguration.Get("PSRPatchRoot", Path.Combine(MapRoot, PSRPatchDirectory));
 
-        public const string HorizonDirectoryName = @"horizons";
-        public const string AvgPatchDirectoryName = @"avg_patches";
-        public const string HavenPatchDirectoryName = @"haven_patches";
+        public const string HorizonDirectory = @"horizons";
+        public const string AvgPatchDirectory = @"avg_patches";
+        public const string HavenPatchDirectory = @"haven_patches";
+        public const string PSRPatchDirectory = @"psr_patches";
 
         #region Patch Cache
 
@@ -89,6 +93,36 @@ namespace viper.corelib.utilities
 
         public static Font TimestampFont = new Font("Arial", 32, FontStyle.Regular);
         public static Font DefaultOverlayFont = new Font("Arial", 16, FontStyle.Regular);
+
+        #endregion
+
+        #region Spiace-related
+
+        public static DateTime Epoch = new DateTime(2000, 1, 1, 11, 58, 55, 816);
+        public const int EarthId = 399;
+        public const int MoonId = 301;
+        public const int SunId = 10;
+
+        // The 5d accounts for leap seconds since 2000.
+        public static double DateTimeToET(DateTime time) => (time - Epoch).TotalSeconds + 5d;
+
+        public static Vector3d SunPosition(DateTime time)
+        {
+            var et = DateTimeToET(time);
+            var state = new double[6];
+            double lt = 0d;
+            CSpice.spkgeo_c(SunId, et, "MOON_ME", MoonId, state, ref lt);
+            return new Vector3d(state[0], state[1], state[2]);
+        }
+
+        public unsafe static Vector3d EarthPosition(DateTime time)
+        {
+            var et = DateTimeToET(time);
+            var state = new double[6];
+            double lt = 0d;
+            CSpice.spkgeo_c(EarthId, et, "MOON_ME", MoonId, state, ref lt);
+            return new Vector3d(state[0], state[1], state[2]);
+        }
 
         #endregion
     }

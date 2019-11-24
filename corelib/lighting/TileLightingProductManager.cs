@@ -538,7 +538,7 @@ namespace viper.corelib.lighting
         // Generate mazarizo cycle lighting patches for all existing horizon patches
 
         public void GenerateNewLightingPatches() =>
-            GenerateLightingPatches(Directory.EnumerateFiles(ViperEnvironment.HorizonsRoot).Select(filename => TerrainPatch.ReadShell(filename)));
+            GenerateLightingPatches(Directory.EnumerateFiles(ViperEnvironment.HorizonRoot).Select(filename => TerrainPatch.ReadShell(filename)));
 
         public void GenerateLightingPatches(IEnumerable<TerrainPatch> patches, bool always = false)
         {
@@ -1051,6 +1051,9 @@ namespace viper.corelib.lighting
                 line, sample, start.ToString("yyyyMMdd"), stop.ToString("yyyyMMdd"), (int)Math.Round(step.TotalHours), observer);
         public static string LongestNightPath(int line, int sample, DateTime start, DateTime stop, TimeSpan step, int observer) =>
             Path.Combine(ViperEnvironment.AvgPatchRoot, LongestNightFilename(line, sample, start, stop, step, observer));
+
+        public static string PSRPatchFilename(int line, int sample) => string.Format("psr_{0:D5}_{1:D5}.png", line, sample);
+        public static string PSRPatchPath(int line, int sample) => Path.Combine(ViperEnvironment.PSRPatchRoot, PSRPatchFilename(line, sample));
 
         // These are used for site files
 

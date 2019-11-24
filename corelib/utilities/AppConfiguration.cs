@@ -34,6 +34,23 @@ namespace viper.corelib.utilities
             return null;
         }
 
+        public static bool GetBoolean(string key, bool default_value = false)
+        {
+            InitializeVariables();
+            var key2 = HostName + "_" + key;
+            var r = _environment[key2];
+            if (r == null) return GetGlobalBoolean(key, default_value);
+            return "true".Equals(r.ToLower()); 
+        }
+
+        public static bool GetGlobalBoolean(string key, bool default_value = false)
+        {
+            InitializeVariables();
+            var r = _environment[key];
+            if (r == null) return default_value;
+            return "true".Equals(r.ToLower());
+        }
+
         protected static string GetHostName()
         {
             if (HostName != null) return HostName;

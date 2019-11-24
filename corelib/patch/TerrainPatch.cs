@@ -105,7 +105,8 @@ namespace viper.corelib.patch
             }
         }
 
-        public static TerrainPatch FromId(int x, int y, int observer = 0) => new TerrainPatch { Line = y * DefaultSize, Sample = x * DefaultSize, Width = DefaultSize, Height = DefaultSize, ObserverHeightInMeters = observer };
+        public static TerrainPatch FromId(int x, int y, int observer = 0)
+            => new TerrainPatch { Line = y * DefaultSize, Sample = x * DefaultSize, Width = DefaultSize, Height = DefaultSize, ObserverHeightInMeters = observer };
         public static TerrainPatch FromId(Point id, int observer = 0) => FromId(id.X, id.Y, observer);
         public static TerrainPatch FromLineSample(int line, int sample, int observer = 0) => new TerrainPatch { Line = line, Sample = sample, Width = DefaultSize, Height = DefaultSize, ObserverHeightInMeters = observer };
         public static Point LineSampleToId(int line, int sample) => new Point(sample / DefaultSize, line / DefaultSize);
@@ -701,10 +702,10 @@ namespace viper.corelib.patch
         public static string GeneratorPostfix = "gpu";  // must be 3 chars
 
         public string DefaultCenterFilename => string.Format(@"{1:D5}_{2:D5}_{0}_center.bin", GeneratorPostfix, Line, Sample);
-        public string DefaultCenterPath => System.IO.Path.Combine(ViperEnvironment.HorizonsRoot, DefaultCenterFilename);
+        public string DefaultCenterPath => System.IO.Path.Combine(ViperEnvironment.HorizonRoot, DefaultCenterFilename);
 
         public string DefaultFilename => string.Format(@"horizon_{0:D5}_{1:D5}_{2:D3}.bin", Line, Sample, ObserverHeightInMeters);
-        public string DefaultPath => System.IO.Path.Combine(ViperEnvironment.HorizonsRoot, DefaultFilename);
+        public string DefaultPath => System.IO.Path.Combine(ViperEnvironment.HorizonRoot, DefaultFilename);
 
         public static bool TryParseFilename(string filename, out int line, out int sample, out int observer_height)
         {
