@@ -40,6 +40,20 @@ namespace viper.corelib.utilities
         public const string HavenPatchDirectory = @"haven_patches";
         public const string PSRPatchDirectory = @"psr_patches";
 
+        #region Initialization
+
+        public static string SetMapRoot(string root)
+        {
+            MapRoot = root;
+            HorizonRoot = Path.Combine(MapRoot, HorizonDirectory);
+            AvgPatchRoot = Path.Combine(MapRoot, AvgPatchDirectory);
+            HavenPatchRoot = Path.Combine(MapRoot, HavenPatchDirectory);
+            PSRPatchRoot = Path.Combine(MapRoot, PSRPatchDirectory);
+            return root;
+        }
+
+        #endregion
+
         #region Patch Cache
 
         public static Dictionary<(int, int, int), TerrainPatch> PatchCache = new Dictionary<(int, int, int), TerrainPatch>();

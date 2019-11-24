@@ -17,14 +17,19 @@ namespace calculator
         {
             Console.WriteLine("Hello from netcore3.0");
 
-            // Initialization
-            OSGeo.GDAL.Gdal.AllRegister();
-            ViperEnvironment.Terrain = new InMemoryInt16Terrain();
-            ViperEnvironment.Terrain.LoadSouth();
-            ViperEnvironment.Processor = new GPUHorizons { Terrain = ViperEnvironment.Terrain };
 
-            var calc = new LightingCalculator{ WriteHorizons = true, Verbose = true, CalculatePSRPatch = true, CalculateAverageSunPatch = true, CalculateAverageEarthPatch = true };
-            calc.Run();
+
+            ViperEnvironment.SetMapRoot("./sp/");
+
+            new LightingCalculator {
+                Verbose = true,
+                WriteHorizons = true,
+                CalculatePSRPatch = true,
+                CalculateSafeHavenPatch = true,
+                CalculateAverageSunPatch = false,
+                CalculateAverageEarthPatch = false
+            }
+            .Run();
         }
     }
 }
